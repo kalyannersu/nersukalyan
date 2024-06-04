@@ -107,7 +107,8 @@ const Home = () => {
     <div className="wrapper">
       <section className="video-section">
         <div className="video-container">
-          <video src="./media/flower.mp4" autoPlay loop muted></video>
+        {/* <img src="./media/nk-2.svg" alt="" className="img" /> */}
+          {/* <video src="./media/flower.mp4" autoPlay loop muted></video> */}
         </div>
         <div className="img-container">
           <img src="./media/window.png" alt="" className="img" />
@@ -129,26 +130,26 @@ const Home = () => {
             </div>
           </div>
           <p className="txt-bottom">
-            shots that will change your mind
+             Turning ideas into reality: Software Engineer
           </p>
         </div>
 
         <div className="v_container">
           <div className="left-side">
             <div className="tv">
-              <div className="bg">push</div>
+              <div className="bg">Works</div>
               <div className="sm">the</div>
               <div className="bg bottom">envelope</div>
             </div>
             <div className="text-container">
-              <p>
+              {/* <p>
                 Photography has become a big part of almost
                 every element of our lives.
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 It become widespread and diverse but we know that this is still a real form of art and
                 magic.
-              </p>
+              </p> */}
             </div>
           </div>
           <div className="right-side">
@@ -160,78 +161,78 @@ const Home = () => {
       <section className="section">
         <div className="boxes-container">
           <div className="columns box1">
+            {/* Box - 1 */}
             <div className="col col-1">
-              <img src="./media/1.jpeg" alt="" />
-              <img src="./media/2.jpeg" alt="" />
+              <img src="./media/onetracker/CreateAccount.svg" alt="" />
+              <img src="./media/onetracker/LogIn.svg" alt="" />
             </div>
             <div className="col-2">
-              <h1>Carolina</h1>
-              <span>28 october 2021</span>
+              <h1>OneTracker</h1>
+              <span>28 october 2023</span>
               <div className="line"></div>
               <div className="text-box">
-                <p>
+                {/* <p>
                   This series is excellently showing that ordinary
                   portrait photography still can be inspiring for you.
                 </p>
                 <p>
                   Check the shots of beautiful Caroline in hat with red and green lights.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="col col-3">
-              <img src="./media/3.webp" alt="" />
-              <img src="./media/4.jpeg" alt="" />
-              <img src="./media/5.jpeg" alt="" />
+              <img src="./media/onetracker/BoardStructure.svg" alt="" />
+              <img src="./media/onetracker/CreateStructure.svg" alt="" />
+              <img src="./media/onetracker/DashboardStructure.svg" alt="" />
             </div>
           </div>
+
+          {/* Box 2 */}
           <div className="columns box2">
             <div className="col col-1">
-              <img src="./media/p1.jpeg" alt="" />
-              <img src="./media/p2.webp" alt="" />
+            <img src="./media/parkingEye/Login.svg" alt="" />
+              <img src="./media/parkingEye/Map.svg" alt="" />
             </div>
             <div className="col-2">
-              <h1>soul dance</h1>
-              <span>17 september 2021</span>
+              <h1>Parking Eye</h1>
+              <span>17 september 2023</span>
               <div className="line"></div>
               <div className="text-box">
-                <p>
+                {/* <p>
                   Beautiful dance of Hanna in neon ligths with retro effect. Pink lights, pretty women
                   and sensuality.
                 </p>
                 <p>
                   Inspiring vibes and invisible beautiful soul on this shots.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="col col-3">
-              <img src="./media/p3.jpeg" alt="" />
-              <img src="./media/p4.jpeg" alt="" />
-              <img src="./media/p5.jpeg" alt="" />
+              <img src="./media/parkingEye/Reports.svg" alt="" />
+              <img src="./media/parkingEye/Map.svg" alt="" />
+              <img src="./media/parkingEye/Map.svg" alt="" />
             </div>
           </div>
+
+           {/* Box 3 */}
           <div className="columns box3">
             <div className="col col-1">
-              <img src="./media/b1.jpeg" alt="" />
-              <img src="./media/b2.webp" alt="" />
-              <img src="./media/b3.jpeg" alt="" />
-              <img src="./media/b4.jpeg" alt="" />
             </div>
             <div className="col-2">
-              <h1>80's vibes</h1>
+              <h1>HinduEvents</h1>
               <span>1 september 2021</span>
               <div className="line"></div>
               <div className="text-box">
-                <p>
+                {/* <p>
                   Retro nostagia can be sweet and sour at the same time. Christina helped us to make
                   photos, that will give you this feelings.
                 </p>
                 <p>
                   Drop in past times with this collection of 80's styled photos.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="col col-3">
-              <img src="./media/b5.webp" alt="" />
             </div>
           </div>
         </div>
