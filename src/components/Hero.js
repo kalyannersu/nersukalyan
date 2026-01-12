@@ -46,51 +46,42 @@ const Hero = () => {
         };
     }, []);
 
-    // GSAP Animations - Simplified and Reliable
+    // GSAP Animations - CLS-optimized with fromTo() and immediateRender: false
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Set initial states explicitly
-            gsap.set('.hero__animate', { opacity: 0, y: 30 });
-            gsap.set('.hero__firstname', { opacity: 0, y: 80, skewY: 5 });
-            gsap.set('.hero__lastname', { opacity: 0, y: 80, skewY: 5 });
-            gsap.set('.hero__name-underline', { scaleX: 0, transformOrigin: 'left' });
-            gsap.set('.hero__particle', { opacity: 0, scale: 0 });
-
             // Create master timeline
+            // Using fromTo() with immediateRender: false to prevent CLS
             const tl = gsap.timeline({
-                defaults: { ease: 'power3.out' },
+                defaults: { ease: 'power3.out', immediateRender: false },
                 delay: 0.2
             });
 
-            // Particles fade in
-            tl.to('.hero__particle', {
-                opacity: 0.6,
-                scale: 1,
-                duration: 0.8,
-                stagger: { amount: 0.5, from: 'random' }
-            });
+            // Particles fade in - start hidden, animate to visible
+            tl.fromTo('.hero__particle',
+                { opacity: 0, scale: 0 },
+                { opacity: 0.6, scale: 1, duration: 0.8, stagger: { amount: 0.5, from: 'random' } }
+            );
 
-            // First name reveals
-            tl.to('.hero__firstname', {
-                opacity: 1,
-                y: 0,
-                skewY: 0,
-                duration: 0.9,
-            }, '-=0.5');
+            // First name reveals with smooth animation
+            tl.fromTo('.hero__firstname',
+                { opacity: 0, y: 40, skewY: 3 },
+                { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
+                '-=0.5'
+            );
 
             // Last name reveals with offset
-            tl.to('.hero__lastname', {
-                opacity: 1,
-                y: 0,
-                skewY: 0,
-                duration: 0.9,
-            }, '-=0.6');
+            tl.fromTo('.hero__lastname',
+                { opacity: 0, y: 40, skewY: 3 },
+                { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
+                '-=0.6'
+            );
 
             // Underline draws
-            tl.to('.hero__name-underline', {
-                scaleX: 1,
-                duration: 0.6,
-            }, '-=0.3');
+            tl.fromTo('.hero__name-underline',
+                { scaleX: 0, transformOrigin: 'left' },
+                { scaleX: 1, duration: 0.6 },
+                '-=0.3'
+            );
 
             // Underline glow pulse
             tl.to('.hero__name-underline', {
@@ -101,12 +92,11 @@ const Hero = () => {
             });
 
             // All animated elements fade in with stagger
-            tl.to('.hero__animate', {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                stagger: 0.08
-            }, '-=0.4');
+            tl.fromTo('.hero__animate',
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+                '-=0.4'
+            );
 
             // Counter animation for stats
             const statValues = document.querySelectorAll('.hero__stat-value');
@@ -201,7 +191,7 @@ const Hero = () => {
                 <div className="hero__gradient-orb hero__gradient-orb--2" />
             </div>
 
-            {/* Floating Particles */}
+            {/* Floating Particles - Using transform for CLS-free positioning */}
             <div className="hero__particles">
                 {particles.map(p => (
                     <div
@@ -210,8 +200,8 @@ const Hero = () => {
                         style={{
                             width: p.size + 'px',
                             height: p.size + 'px',
-                            left: p.left + '%',
-                            top: p.top + '%'
+                            // Use transform instead of left/top to avoid CLS
+                            transform: `translate(${p.left}vw, ${p.top}vh)`
                         }}
                     />
                 ))}

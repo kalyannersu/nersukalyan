@@ -12,6 +12,40 @@
     justify-content: center;
     overflow: hidden;
     padding-top: 80px;
+    contain: layout style;
+}
+
+/* ===========================================
+   CLS PREVENTION - Critical for Core Web Vitals
+   =========================================== */
+
+/* Contain background effects to prevent layout shifts */
+.hero__background,
+.hero__particles,
+.hero__spotlight {
+    contain: strict;
+    content-visibility: auto;
+}
+
+/* Reserve space for animated content */
+.hero__content {
+    contain: layout style;
+}
+
+/* Ensure animated elements have initial visibility */
+.hero__animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero__firstname,
+.hero__lastname {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+}
+
+.hero__name-underline {
+    transform: scaleX(1);
 }
 
 /* Loaded state handled by GSAP */
@@ -116,7 +150,7 @@
 }
 
 /* ========================================
-   FLOATING PARTICLES
+   FLOATING PARTICLES - CLS Optimized
    ======================================== */
 
 .hero__particles {
@@ -125,11 +159,19 @@
     z-index: 1;
     pointer-events: none;
     overflow: hidden;
+    /* Critical: Isolate from layout calculations */
+    contain: strict;
+    content-visibility: auto;
 }
 
 .hero__particle {
     position: absolute;
+    /* Start fully transparent - no layout impact */
     opacity: 0;
+    /* Use transform for positioning to avoid layout shifts */
+    will-change: transform, opacity;
+    /* Ensure particles don't contribute to CLS */
+    contain: layout style paint;
 }
 
 .hero__particle--dot {
