@@ -1,29 +1,30 @@
 /* ===========================================
    FOOTER STYLES
+   Editorial Style - Minimal Gold Accent
    =========================================== */
 
 .footer {
-    background: var(--color-bg-secondary);
+    position: relative;
+    background: var(--color-bg-primary);
+    padding: var(--space-16) 0 var(--space-8);
     border-top: 1px solid var(--color-border);
-    padding-top: var(--space-16);
-    padding-bottom: var(--space-8);
 }
+
+/* ========================================
+   CONTENT GRID
+   ======================================== */
 
 .footer__content {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-10);
+    margin-bottom: var(--space-12);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
     .footer__content {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .footer__content {
-        grid-template-columns: 2fr 1fr 1.5fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: var(--space-8);
     }
 }
 
@@ -40,64 +41,100 @@
 .footer__logo {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-logo);
+    gap: var(--space-1);
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
+    letter-spacing: var(--tracking-tight);
     text-decoration: none;
+    color: var(--color-text-primary);
+    transition: opacity 0.3s ease;
+}
+
+.footer__logo:hover {
+    opacity: 0.8;
+}
+
+.footer__logo-text {
     color: var(--color-text-primary);
 }
 
 .footer__logo-accent {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-accent-primary);
 }
 
 .footer__tagline {
     font-size: var(--text-sm);
     color: var(--color-text-tertiary);
-    max-width: 280px;
     margin: 0;
+    max-width: 280px;
+    line-height: var(--leading-relaxed);
 }
 
 /* ========================================
    NAVIGATION
    ======================================== */
 
+.footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
 .footer__heading {
     font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     color: var(--color-text-primary);
     text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
-    margin: 0 0 var(--space-4);
+    letter-spacing: var(--tracking-wider);
+    margin: 0;
 }
 
 .footer__links {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-2);
 }
 
 .footer__link {
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-tertiary);
     text-decoration: none;
-    transition: var(--transition-fast);
+    transition: color 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.footer__link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-accent-primary);
+    transition: width 0.3s ease;
 }
 
 .footer__link:hover {
-    color: var(--color-accent-primary);
+    color: var(--color-text-primary);
+}
+
+.footer__link:hover::after {
+    width: 100%;
 }
 
 /* ========================================
    CONTACT
    ======================================== */
+
+.footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
 
 .footer__contact-info {
     display: flex;
@@ -111,9 +148,9 @@
     align-items: center;
     gap: var(--space-2);
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-tertiary);
     text-decoration: none;
-    transition: var(--transition-fast);
+    transition: color 0.3s ease;
 }
 
 .footer__contact-link:hover {
@@ -122,13 +159,19 @@
 
 .footer__contact-link svg,
 .footer__contact-location svg {
-    color: var(--color-text-muted);
+    color: var(--color-accent-primary);
     flex-shrink: 0;
 }
 
 /* ========================================
    SOCIAL
    ======================================== */
+
+.footer__social-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
 
 .footer__social {
     display: flex;
@@ -141,66 +184,58 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    color: var(--color-text-secondary);
-    background: var(--color-bg-tertiary);
+    color: var(--color-text-tertiary);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    transition: var(--transition-fast);
+    transition: all 0.3s ease;
 }
 
 .footer__social-link:hover {
-    color: var(--color-text-primary);
+    color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    background: rgba(124, 58, 237, 0.1);
-    transform: translateY(-3px);
+}
+
+/* ========================================
+   DIVIDER
+   ======================================== */
+
+.footer__divider {
+    height: 1px;
+    background: var(--color-border);
+    margin-bottom: var(--space-8);
 }
 
 /* ========================================
    BOTTOM BAR
    ======================================== */
 
-.footer__divider {
-    height: 1px;
-    background: var(--color-border);
-    margin: var(--space-10) 0 var(--space-6);
-}
-
 .footer__bottom {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
 }
 
-.footer__copyright,
-.footer__credit {
+.footer__copyright {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
     margin: 0;
 }
 
-.footer__heart {
-    color: var(--color-error);
-}
-
+/* Back to Top */
 .footer__back-to-top {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: var(--color-text-secondary);
-    background: var(--color-bg-tertiary);
+    width: 44px;
+    height: 44px;
+    color: var(--color-text-tertiary);
+    background: transparent;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: all 0.3s ease;
 }
 
 .footer__back-to-top:hover {
-    color: var(--color-text-primary);
+    color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    background: rgba(124, 58, 237, 0.1);
-    transform: translateY(-3px);
 }
