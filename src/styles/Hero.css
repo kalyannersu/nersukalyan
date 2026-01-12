@@ -105,14 +105,17 @@
     }
 }
 
-/* Gradient Orbs - Ambient Glow */
+/* Gradient Orbs - Ambient Glow (GPU optimized) */
 .hero__gradient-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
+    filter: blur(60px);
+    /* Reduced from 100px for better mobile performance */
+    opacity: 0.12;
     pointer-events: none;
     animation: orbFloat 10s ease-in-out infinite;
+    will-change: transform;
+    contain: strict;
 }
 
 .hero__gradient-orb--1 {
@@ -399,8 +402,18 @@
     width: 100%;
     height: 8px;
     background: var(--color-accent-primary);
-    box-shadow: 0 0 20px rgba(213, 191, 118, 0.3);
-    will-change: transform, box-shadow;
+    /* Removed animated box-shadow - using pseudo-element for glow */
+    will-change: transform, opacity;
+}
+
+.hero__name-underline::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: var(--color-accent-primary);
+    opacity: 0.3;
+    filter: blur(10px);
+    z-index: -1;
 }
 
 @media (max-width: 768px) {
@@ -440,21 +453,23 @@
     height: 8px;
     background: var(--color-accent-primary);
     border-radius: 50%;
+    /* Static glow - no animated box-shadow for GPU compositing */
     box-shadow: 0 0 10px var(--color-accent-primary);
     animation: dotPulse 2s ease-in-out infinite;
 }
 
+/* GPU-composited animation using only opacity and transform */
 @keyframes dotPulse {
 
     0%,
     100% {
         opacity: 1;
-        box-shadow: 0 0 10px var(--color-accent-primary);
+        transform: scale(1);
     }
 
     50% {
         opacity: 0.6;
-        box-shadow: 0 0 20px var(--color-accent-primary), 0 0 30px var(--color-accent-primary);
+        transform: scale(1.2);
     }
 }
 

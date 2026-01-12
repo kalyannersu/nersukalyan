@@ -83,9 +83,9 @@ const Hero = () => {
                 '-=0.3'
             );
 
-            // Underline glow pulse
-            tl.to('.hero__name-underline', {
-                boxShadow: '0 0 40px rgba(213, 191, 118, 0.8)',
+            // Underline glow pulse - using opacity instead of box-shadow for GPU compositing
+            tl.to('.hero__name-underline::after', {
+                opacity: 0.6,
                 duration: 0.3,
                 yoyo: true,
                 repeat: 1
