@@ -17,10 +17,12 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="T1SEQ_G8QLnLkfyaZeJRM0ncI3L-pGGQNOT8BBNtn4o" />
 
-  <!-- Self-hosted Fonts - No render-blocking third-party requests -->
-  <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/fonts/fonts.css">
+  <!-- Font Optimization - Preconnect eliminates DNS/TLS overhead -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts with display=swap (non-blocking) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <title>Nersu Kalyan</title>
   <script type="application/ld+json">
