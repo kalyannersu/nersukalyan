@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 import '../styles/Hero.css';
+
+// GSAP is loaded dynamically to reduce initial bundle size and improve FCP
 
 const Hero = () => {
     const heroRef = useRef(null);
@@ -46,115 +47,109 @@ const Hero = () => {
         };
     }, []);
 
-    // GSAP Animations - CLS-optimized with fromTo() and immediateRender: false
+    // GSAP Animations - Lazy loaded to improve FCP/LCP
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Create master timeline
-            // Using fromTo() with immediateRender: false to prevent CLS
-            const tl = gsap.timeline({
-                defaults: { ease: 'power3.out', immediateRender: false },
-                delay: 0.2
-            });
+        let ctx;
 
-            // Particles fade in - start hidden, animate to visible
-            tl.fromTo('.hero__particle',
-                { opacity: 0, scale: 0 },
-                { opacity: 0.6, scale: 1, duration: 0.8, stagger: { amount: 0.5, from: 'random' } }
-            );
+        // Dynamically import GSAP to reduce initial bundle size
+        import('gsap').then(({ gsap }) => {
+            ctx = gsap.context(() => {
+                // Create master timeline
+                // Using fromTo() with immediateRender: false to prevent CLS
+                const tl = gsap.timeline({
+                    defaults: { ease: 'power3.out', immediateRender: false },
+                    delay: 0.3 // Slightly longer delay to ensure paint happens first
+                });
 
-            // First name reveals with smooth animation
-            tl.fromTo('.hero__firstname',
-                { opacity: 0, y: 40, skewY: 3 },
-                { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
-                '-=0.5'
-            );
+                // Particles fade in - start hidden, animate to visible
+                tl.fromTo('.hero__particle',
+                    { opacity: 0, scale: 0 },
+                    { opacity: 0.6, scale: 1, duration: 0.8, stagger: { amount: 0.5, from: 'random' } }
+                );
 
-            // Last name reveals with offset
-            tl.fromTo('.hero__lastname',
-                { opacity: 0, y: 40, skewY: 3 },
-                { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
-                '-=0.6'
-            );
+                // First name reveals with smooth animation
+                tl.fromTo('.hero__firstname',
+                    { opacity: 0, y: 40, skewY: 3 },
+                    { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
+                    '-=0.5'
+                );
 
-            // Underline draws
-            tl.fromTo('.hero__name-underline',
-                { scaleX: 0, transformOrigin: 'left' },
-                { scaleX: 1, duration: 0.6 },
-                '-=0.3'
-            );
+                // Last name reveals with offset
+                tl.fromTo('.hero__lastname',
+                    { opacity: 0, y: 40, skewY: 3 },
+                    { opacity: 1, y: 0, skewY: 0, duration: 0.9 },
+                    '-=0.6'
+                );
 
-            // Underline glow pulse - using opacity instead of box-shadow for GPU compositing
-            tl.to('.hero__name-underline::after', {
-                opacity: 0.6,
-                duration: 0.3,
-                yoyo: true,
-                repeat: 1
-            });
+                // Underline draws
+                tl.fromTo('.hero__name-underline',
+                    { scaleX: 0, transformOrigin: 'left' },
+                    { scaleX: 1, duration: 0.6 },
+                    '-=0.3'
+                );
 
-            // All animated elements fade in with stagger
-            tl.fromTo('.hero__animate',
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-                '-=0.4'
-            );
+                // All animated elements fade in with stagger
+                tl.fromTo('.hero__animate',
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+                    '-=0.4'
+                );
 
-            // Counter animation for stats
-            const statValues = document.querySelectorAll('.hero__stat-value');
-            statValues.forEach((stat, index) => {
-                const finalText = stat.textContent;
-                const number = parseInt(finalText);
-                if (!isNaN(number)) {
-                    const obj = { val: 0 };
-                    gsap.to(obj, {
-                        val: number,
-                        duration: 1.5,
-                        delay: 1.2 + (index * 0.1),
-                        ease: 'power2.out',
-                        onUpdate: () => {
-                            stat.textContent = Math.round(obj.val).toString().padStart(2, '0') + '+';
-                        }
-                    });
+                // Counter animation for stats
+                const statValues = document.querySelectorAll('.hero__stat-value');
+                statValues.forEach((stat, index) => {
+                    const finalText = stat.textContent;
+                    const number = parseInt(finalText);
+                    if (!isNaN(number)) {
+                        const obj = { val: 0 };
+                        gsap.to(obj, {
+                            val: number,
+                            duration: 1.5,
+                            delay: 1.2 + (index * 0.1),
+                            ease: 'power2.out',
+                            onUpdate: () => {
+                                stat.textContent = Math.round(obj.val).toString().padStart(2, '0') + '+';
+                            }
+                        });
+                    }
+                });
+
+                // Continuous particle floating
+                gsap.to('.hero__particle', {
+                    y: 'random(-25, 25)',
+                    x: 'random(-15, 15)',
+                    rotation: 'random(-20, 20)',
+                    duration: 'random(3, 6)',
+                    ease: 'sine.inOut',
+                    repeat: -1,
+                    yoyo: true,
+                    stagger: { each: 0.15, from: 'random' },
+                    delay: 1
+                });
+
+                // Magnetic effect on name
+                const nameElement = nameRef.current;
+                if (nameElement) {
+                    const handleNameMove = (e) => {
+                        const rect = nameElement.getBoundingClientRect();
+                        const x = (e.clientX - rect.left - rect.width / 2) * 0.1;
+                        const y = (e.clientY - rect.top - rect.height / 2) * 0.1;
+                        gsap.to(nameElement, { x, y, duration: 0.4, ease: 'power2.out' });
+                    };
+
+                    const handleNameLeave = () => {
+                        gsap.to(nameElement, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+                    };
+
+                    nameElement.addEventListener('mousemove', handleNameMove);
+                    nameElement.addEventListener('mouseleave', handleNameLeave);
                 }
-            });
+            }, heroRef);
+        });
 
-            // Continuous particle floating
-            gsap.to('.hero__particle', {
-                y: 'random(-25, 25)',
-                x: 'random(-15, 15)',
-                rotation: 'random(-20, 20)',
-                duration: 'random(3, 6)',
-                ease: 'sine.inOut',
-                repeat: -1,
-                yoyo: true,
-                stagger: { each: 0.15, from: 'random' },
-                delay: 1
-            });
-
-            // Magnetic effect on name
-            const nameElement = nameRef.current;
-            if (nameElement) {
-                const handleNameMove = (e) => {
-                    const rect = nameElement.getBoundingClientRect();
-                    const x = (e.clientX - rect.left - rect.width / 2) * 0.1;
-                    const y = (e.clientY - rect.top - rect.height / 2) * 0.1;
-                    gsap.to(nameElement, { x, y, duration: 0.4, ease: 'power2.out' });
-                };
-
-                const handleNameLeave = () => {
-                    gsap.to(nameElement, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-                };
-
-                nameElement.addEventListener('mousemove', handleNameMove);
-                nameElement.addEventListener('mouseleave', handleNameLeave);
-
-                return () => {
-                    nameElement.removeEventListener('mousemove', handleNameMove);
-                    nameElement.removeEventListener('mouseleave', handleNameLeave);
-                };
-            }
-        }, heroRef);
-
-        return () => ctx.revert();
+        return () => {
+            if (ctx) ctx.revert();
+        };
     }, []);
 
     const handleScrollClick = (e) => {
