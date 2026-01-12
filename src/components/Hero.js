@@ -165,8 +165,8 @@ const Hero = () => {
         }
     };
 
-    // Generate floating particles
-    const particles = Array.from({ length: 12 }, (_, i) => ({
+    // Generate floating particles - reduced for performance
+    const particles = Array.from({ length: 6 }, (_, i) => ({
         id: i,
         size: Math.random() * 6 + 3,
         left: Math.random() * 100,

@@ -28,10 +28,10 @@
 
   /* Text Colors - WCAG AA Compliant (≥4.5:1 contrast ratio) */
   --color-text-primary: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.75);
-  --color-text-tertiary: rgba(255, 255, 255, 0.65);
-  --color-text-muted: rgba(255, 255, 255, 0.6);
-  /* WCAG AA: ~5.4:1 contrast */
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-tertiary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.75);
+  /* WCAG AA: ~7:1 contrast */
 
   /* Accent Colors - Gold from Logo #D5BF76 */
   --color-accent-primary: #D5BF76;
