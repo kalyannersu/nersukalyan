@@ -105,17 +105,18 @@
     }
 }
 
-/* Gradient Orbs - Ambient Glow (GPU optimized) */
+/* Gradient Orbs - Ambient Glow (GPU optimized - reduced blur for mobile) */
 .hero__gradient-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
-    /* Reduced from 100px for better mobile performance */
+    filter: blur(30px);
+    /* Reduced from 60px for better mobile performance */
     opacity: 0.12;
     pointer-events: none;
-    animation: orbFloat 10s ease-in-out infinite;
+    animation: orbFloat 12s ease-in-out infinite;
     will-change: transform;
     contain: strict;
+    transform: translateZ(0);
 }
 
 .hero__gradient-orb--1 {

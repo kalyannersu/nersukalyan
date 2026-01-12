@@ -6,6 +6,9 @@
 .about {
     position: relative;
     background: var(--color-bg-primary);
+    /* Performance: Defer rendering until visible */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px;
 }
 
 /* ========================================

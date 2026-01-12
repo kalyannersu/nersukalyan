@@ -58,7 +58,7 @@ const Hero = () => {
                 // Using fromTo() with immediateRender: false to prevent CLS
                 const tl = gsap.timeline({
                     defaults: { ease: 'power3.out', immediateRender: false },
-                    delay: 0.3 // Slightly longer delay to ensure paint happens first
+                    delay: 0.6 // Longer delay to ensure LCP paints before animations
                 });
 
                 // Particles fade in - start hidden, animate to visible
